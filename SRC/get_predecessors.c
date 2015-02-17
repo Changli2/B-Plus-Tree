@@ -78,7 +78,7 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 		struct PageHdr *PagePtrDown = FetchPage(child);
 		find(result, k, key, index, PagePtrDown->NumKeys, 
 			PagePtrDown->KeyListPtr, PagePtrDown); 
-		// FreePage(PagePtr2);//!!!!!!
+		FreePage(PagePtrDown);//!!!!!!
 		if (*index == k) {
 			return;
 		}
@@ -91,7 +91,10 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 		int compKeyResult = CompareKeys(key, Word);
 		if (compKeyResult == 2) {
 			assert(*index < k);
-			result[*index] = Word;
+			char *elem;
+			elem = (char*)malloc((strlen(Word) + 1) * sizeof(char));
+			strcpy(elem, Word);
+			result[*index] = elem;
 			*index = *index + 1;
 		}
 		
@@ -129,7 +132,7 @@ int get_predecessors(char *key, int k, char *result[]) {
 		find(result, k, key, index, PagePtr->NumKeys, KeyListTraverser, PagePtr);
 	}
     
-    //FreePage(PagePtr)
+    FreePage(PagePtr);
     sort_string_array(result, *index);
 	printHelperPredecessors(*index, result);
     return 0;
