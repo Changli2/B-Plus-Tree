@@ -1,0 +1,7 @@
+> alex 1
+< alex 1
+> alex -1
+< alex -1
+> zebra 10
+< zebra 10
+x
