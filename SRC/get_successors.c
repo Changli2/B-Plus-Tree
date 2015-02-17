@@ -17,11 +17,7 @@ void printHelper(int index, char *result[]) {
 int get_successors(char *key, int k, char *result[]) {
 	int CompareKeys(char *Key, char *Word);
     PAGENO FindNumPagesInTree(void);
-    //key = key;
-    //k = k;
-    //result = result;
-    //printf("IMPLEMENT  ME\n");
-    /*************/
+ 
 	if (check_word2(key) == FALSE) {
         return 0;
     }
@@ -82,14 +78,15 @@ int get_successors(char *key, int k, char *result[]) {
 
     // read strings into array
     while (index < k && KeyListTraverser != NULL) {
-
-    	result[index] = KeyListTraverser->StoredKey;
+        char *elem = (char*)malloc((strlen(KeyListTraverser->StoredKey) + 1) * sizeof(char));
+        strcpy(elem, KeyListTraverser->StoredKey);
+    	result[index] = elem;
     	index++;
     	KeyListTraverser = KeyListTraverser->Next;
 
     	if (KeyListTraverser == NULL) {
     		page = PagePtr->PgNumOfNxtLfPg;
-    		//FreePage(PagePtr);
+    		FreePage(PagePtr);
 
     		if (index < k) {
                 if ((page < 1) || (page > FindNumPagesInTree())) {
@@ -104,15 +101,12 @@ int get_successors(char *key, int k, char *result[]) {
     	}
     }
 
-   
+    if (KeyListTraverser != NULL) {
+        FreePage(PagePtr);
+    }
     
     printHelper(index, result);
 
-     // if (KeyListTraverser != NULL) {
-     //    printf("%s\n", "here");
-     // 	FreePage(PagePtr);
-     // }
-        /*************/
 
     return 0;
 }
