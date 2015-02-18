@@ -104,35 +104,32 @@ int main(int argc, char **argv) {
             scanf("%s", word);
             printf("k=?\n");
             scanf("%d", &k);
-            /*************/
+
             if (k <= 0) {
                 printf("k should be positive not %d", k);
             } else {
                 char **keyArr = create_string_array(k);
-                get_successors(word, k, keyArr);// ??? not sure
+                get_successors(word, k, keyArr);
                 free_string_array(keyArr, k);
             }
             
-            //printf("IMPLEMENT  ME!\n");
-            /*************/
+
             break;
         case '<':
             printf("word=?\n");
             scanf("%s", word);
             printf("k=?\n");
             scanf("%d", &k);
-            /*************/
+
             if (k <= 0) {
                 printf("k should be positive not %d", k);
             } else {
                 char **keyArr = create_string_array(k);
-                get_predecessors(word, k, keyArr);// ??? not sure
+                get_predecessors(word, k, keyArr);
 
                 free_string_array(keyArr, k);
             }
             
-            /*************/
-            //printf("IMPLEMENT  ME!\n");
             break;
         case 'T':
             printf("\n*** Printing tree in order .........\n");

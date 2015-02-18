@@ -25,7 +25,6 @@ void printHelperPredecessors(int index, char *result[]) {
 
 void find(char *result[], int k, char *key, int *index, int numOfKeyLeft, 
 		struct KeyRecord *KeyListTraverser, struct PageHdr *PagePtr) {
-	//numOfKeyLeft--;
 	if (*index == k) {
 		// if there are enough elems in the result array
 		return;
@@ -53,20 +52,11 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 			if (*index == k) {
 				return;
 			}
-			// if (numOfKeyLeft == 0 && IsNonLeaf(PagePtr)) {
-			// 	struct PageHdr *PagePtr2 = FetchPage(PagePtr->PtrToFinalRtgPg);
-			// 	find(result, k, key, index, PagePtr2->NumKeys, 
-			// 		PagePtr2->KeyListTraverser, PagePtr2);
-			// 	// FreePage(PagePtr2);//!!!!!!
-			// } else {
-			// 	find(result, k, key, index, numOfKeyLeft - 1, 
-			// 		KeyListTraverser->Next, PagePtr); 
-			// }
 		}
 	}
 	
 	
-
+	// if this is a non-lefepage, consider go right
 	if (IsNonLeaf(PagePtr)) {
 		// If this is nonleaf node, search down
 		PAGENO child;
@@ -78,7 +68,7 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 		struct PageHdr *PagePtrDown = FetchPage(child);
 		find(result, k, key, index, PagePtrDown->NumKeys, 
 			PagePtrDown->KeyListPtr, PagePtrDown); 
-		FreePage(PagePtrDown);//!!!!!!
+		FreePage(PagePtrDown);
 		if (*index == k) {
 			return;
 		}
@@ -102,13 +92,11 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 
 	return;
 }
+
+// this is the entrance for "<"
 int get_predecessors(char *key, int k, char *result[]) {
 	
-	
-    //key = key;
-    //k = k;
-    //result = result;
-    //printf("IMPLEMENT  ME\n");
+
 	if (check_word2(key) == FALSE) {
         return 0;
     }

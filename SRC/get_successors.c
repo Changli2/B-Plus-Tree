@@ -105,6 +105,7 @@ int get_successors(char *key, int k, char *result[]) {
         FreePage(PagePtr);
     }
     
+    // print out the result
     printHelper(index, result);
 
 
