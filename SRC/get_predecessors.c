@@ -30,6 +30,7 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 		return;
 	}
 
+	// right most child has been visited
 	if (IsNonLeaf(PagePtr) && numOfKeyLeft < 0) {
 		return;
 	} 
@@ -65,9 +66,15 @@ void find(char *result[], int k, char *key, int *index, int numOfKeyLeft,
 		} else {
 			child = KeyListTraverser->PgNum;
 		}
+		if ((child < 1) || (child > FindNumPagesInTree())) {
+        	return;
+    	}
 		struct PageHdr *PagePtrDown = FetchPage(child);
-		find(result, k, key, index, PagePtrDown->NumKeys, 
-			PagePtrDown->KeyListPtr, PagePtrDown); 
+		if (PagePtrDown != NULL) {
+			find(result, k, key, index, PagePtrDown->NumKeys, 
+				PagePtrDown->KeyListPtr, PagePtrDown); 
+		}
+		
 		FreePage(PagePtrDown);
 		if (*index == k) {
 			return;
@@ -117,7 +124,9 @@ int get_predecessors(char *key, int k, char *result[]) {
 	
 	if (PagePtr != NULL) {
 		struct KeyRecord *KeyListTraverser = PagePtr->KeyListPtr;
-		find(result, k, key, index, PagePtr->NumKeys, KeyListTraverser, PagePtr);
+		if (KeyListTraverser != NULL) {
+			find(result, k, key, index, PagePtr->NumKeys, KeyListTraverser, PagePtr);
+		}
 	}
     
     FreePage(PagePtr);
