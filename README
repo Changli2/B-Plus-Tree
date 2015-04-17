@@ -1,12 +1,3 @@
---- christos, 9/18/2009
-
------------ COMPATIBILITY: ------------
-works fine on 
-    Ubuntu 9.04 :   gcc (Ubuntu 4.3.3-5ubuntu4) 4.3.3
-    Fedora Core :   gcc (GCC) 4.1.2 20070502 (Red Hat 4.1.2-12)
-    Mepis 6.0:      gcc (GCC) 4.0.3 (Ubuntu 4.0.3-1ubuntu5)
-    Cygwin (winXP): gcc (GCC) 3.4.4 
-    Mac OSX 10.4 (Tiger) i686-apple-darwin8-gcc-4.0.1 (GCC) 4.0.1 
 
 
 ------------ "How to" ------------------------
